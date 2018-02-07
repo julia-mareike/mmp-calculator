@@ -25,7 +25,7 @@ class InputForm extends React.Component {
       <div>
         <form>
           {Object.keys(this.state).map(party => {
-            return <p>{party}: <input type='number' max='100' name={`${party}`} value={this.state[party]} /></p>
+            return <p>hi {party}: <input type='number' max='100' name={`${party}`} value={this.state[party]} /></p>
           })}
         </form>
 
