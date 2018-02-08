@@ -1,15 +1,15 @@
 import React from 'react'
+import { HashRouter as Router, Route } from 'react-router-dom'
 
 import InputForm from './InputForm'
 import FormTotalError from './FormTotalError'
-import FormTotalTrue from './FormTotalTrue'
+import Electorates from './Electorates'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      hundredPercent: null,
       formError: true
     }
 
@@ -18,10 +18,10 @@ class App extends React.Component {
 
   checkTotal(input) {
     const total = Object.values(input).reduce((total, num) => {return (total + num) })
-    console.log(total !== 100)
     this.setState({
       hundredPercent: (total),
-      formError: (total !== 100)
+      formError: (total !== 100),
+      parties: input
     })
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
         <h1>vote!</h1>
         <InputForm checkTotal={this.checkTotal} />
         {this.state.formError && <FormTotalError total={this.state.hundredPercent} />}
-        {!this.state.formError && <FormTotalTrue />}
+        {!this.state.formError && <Electorates parties={this.state.parties} />}
       </div>
     )
   }
