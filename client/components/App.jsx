@@ -1,96 +1,48 @@
 import React from 'react'
 
 import InputForm from './InputForm'
-// import AddWidget from './AddWidget'
-// import WidgetList from './WidgetList'
-// import WidgetDetails from './WidgetDetails'
-// import ErrorMessage from './ErrorMessage'
+import FormTotalError from './FormTotalError'
+import FormTotalTrue from './FormTotalTrue'
 
-// import {getWidgets} from '../api'
-
-export default class App extends React.Component {
-  constructor (props) {
+class App extends React.Component {
+  constructor(props) {
     super(props)
 
     this.state = {
-      // error: null,
-      // widgets: [],
-      // activeWidget: null,
-      // detailsVisible: false,
-      // addWidgetVisible: false
+      hundredPercent: null,
+      formError: true
     }
 
-    // this.refreshList = this.refreshList.bind(this)
-    // this.showDetails = this.showDetails.bind(this)
-    // this.hideDetails = this.hideDetails.bind(this)
-    // this.renderWidgets = this.renderWidgets.bind(this)
-    // this.showAddWidget = this.showAddWidget.bind(this)
+    this.checkTotal = this.checkTotal.bind(this)
   }
 
-  // componentDidMount () {
-  //   this.refreshList()
-  // }
+  checkTotal(input) {
+    const total = Object.values(input).reduce((total, num) => {return (total + num) })
+    console.log(total !== 100)
+    this.setState({
+      hundredPercent: (total),
+      formError: (total !== 100)
+    })
+    // checkError(total)
+  }
 
-  // renderWidgets (err, widgets) {
+  // checkError(percent) {
   //   this.setState({
-  //     error: err,
-  //     widgets: widgets || []
+  //     hundredPercent: null,
+  //     formError: (percent > 100)
   //   })
   // }
 
-  // refreshList (err) {
-  //   this.setState({
-  //     error: err,
-  //     addWidgetVisible: false
-  //   })
-  //   getWidgets(this.renderWidgets)
-  // }
-
-  // showAddWidget () {
-  //   this.setState({
-  //     addWidgetVisible: true
-  //   })
-  // }
-
-  // showDetails (widget) {
-  //   this.setState({
-  //     activeWidget: widget,
-  //     detailsVisible: true
-  //   })
-  // }
-
-  // hideDetails () {
-  //   this.setState({
-  //     detailsVisible: false
-  //   })
-  // }
-
-  render () {
+  render() {
     return (
       <div>
-        {/* <ErrorMessage error={this.state.error} /> */}
-
-        <h1>What is vote?</h1>
-        <InputForm />
-{/* 
-        <WidgetList
-          showDetails={this.showDetails}
-          widgets={this.state.widgets} />
-
-        <p>
-          <a id='show-widget-link' href='#'
-            onClick={this.showAddWidget}>Add widget</a>
-        </p>
-
-        {this.state.addWidgetVisible && <AddWidget
-          finishAdd={this.refreshList} />}
-
-        {this.state.detailsVisible && <WidgetDetails
-          isVisible={this.state.detailsVisible}
-          hideDetails={this.hideDetails}
-          widget={this.state.activeWidget} />} */}
+        <h1>vote?</h1>
+        <InputForm checkTotal={this.checkTotal} />
+        {this.state.formError && <FormTotalError total={this.state.hundredPercent} />}
+        {!this.state.formError && <FormTotalTrue />}
       </div>
     )
   }
 }
 
+export default App

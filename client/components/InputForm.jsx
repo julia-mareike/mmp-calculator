@@ -1,21 +1,37 @@
 import React from 'react'
+import { checkTotal } from './App'
 
 class InputForm extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      national: null,
-      labour: null,
-      greens: null,
-      nzfirst: null,
-      māori: null,
-      act: null,
-      top: null,
-      mana: null,
-      unitedfuture: null,
-      legalise: null,
-      other: null
+      national: 0,
+      labour: 0,
+      greens: 0,
+      nzfirst: 0,
+      māori: 0,
+      act: 0,
+      top: 0,
+      mana: 0,
+      unitedfuture: 0,
+      legalise: 0,
+      other: 0
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleSubmit () {
+    this.props.checkTotal(this.state)
+    // const total = Object.values(this.state).reduce((total, num) => {return (total + num) })
+    // console.log(total)
+    } 
+
+  handleChange (e) {
+    this.setState({
+      [e.target.name]: Number(e.target.value)
+    })
   }
 
   render() {
@@ -25,14 +41,13 @@ class InputForm extends React.Component {
       <div>
         <form>
           {Object.keys(this.state).map(party => {
-            return <p>hi {party}: <input type='number' max='100' name={`${party}`} value={this.state[party]} /></p>
+            return <p>{party}: <input type='number' min='0' max='100' name={`${party}`} onChange={this.handleChange} /></p>
           })}
+
+        <button type='button' onClick={this.handleSubmit}>Calculate</button>
         </form>
-
-
-        {/* <a href='#' onClick={hideDetails}>Close</a> */}
-
-        {/* onClick function reduce inputs, if > 100 werror/warning please make sure total adds up to 100 */}
+        {/* onClick={handleSubmit} */}
+        {/* onClick function reduce inputs, if > 100 error/warning please make sure total adds up to 100 */}
       </div>
     )
   }
