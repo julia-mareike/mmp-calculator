@@ -23,20 +23,12 @@ class App extends React.Component {
       hundredPercent: (total),
       formError: (total !== 100)
     })
-    // checkError(total)
   }
-
-  // checkError(percent) {
-  //   this.setState({
-  //     hundredPercent: null,
-  //     formError: (percent > 100)
-  //   })
-  // }
 
   render() {
     return (
       <div>
-        <h1>vote?</h1>
+        <h1>vote!</h1>
         <InputForm checkTotal={this.checkTotal} />
         {this.state.formError && <FormTotalError total={this.state.hundredPercent} />}
         {!this.state.formError && <FormTotalTrue />}
