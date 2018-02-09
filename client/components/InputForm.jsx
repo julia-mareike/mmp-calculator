@@ -36,9 +36,11 @@ class InputForm extends React.Component {
     return (
       <div>
         <form>
-          {Object.keys(this.state).map(party => {
-            return <p>{party}: <input type='number' min='0' max='100' name={`${party}`} placeholder='0' onChange={this.handleChange} /></p>
+          <ul>
+          {Object.keys(this.state).map((party, idx) => {
+            return <li key={idx}>{party}: <input type='number' min='0' max='100' name={`${party}`} placeholder='0' onChange={this.handleChange} /></li>
           })}
+          </ul>
         <button type='button' onClick={this.handleSubmit}>Next step: electorates</button>
         </form>
       </div>

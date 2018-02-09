@@ -8,11 +8,9 @@ import Electorates from './Electorates'
 class App extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
       formError: true
     }
-
     this.checkTotal = this.checkTotal.bind(this)
   }
 
