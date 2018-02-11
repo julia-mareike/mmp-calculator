@@ -1,6 +1,7 @@
 import React from 'react'
 import { checkTotal } from './App'
 import FormPartyList from './PartyList'
+import FormTotalError from './FormTotalError'
 
 class InputForm extends React.Component {
   constructor(props) {
@@ -28,16 +29,19 @@ class InputForm extends React.Component {
   }
 
   handleChange(e) {
+    e.preventDefault()
     this.setState({
       [e.target.name]: Number(e.target.value)
     })
   }
 
   render() {
+    const state = this.props.formState
     return (
       <div>
         <FormPartyList list={this.state} max='100' handleChange={this.handleChange} 
         handleSubmit={this.handleSubmit} text='Next step: electorates' />
+        {state.formError && <FormTotalError total={state.hundredPercent} />}
       </div>
     )
   }

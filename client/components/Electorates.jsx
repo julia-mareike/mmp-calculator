@@ -12,6 +12,7 @@ class Electorates extends React.Component {
     }
 
     handleChange(e) {
+        e.preventDefault()
         this.setState({
             [e.target.name]: Number(e.target.value)
         })
