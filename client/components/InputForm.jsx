@@ -1,6 +1,6 @@
 import React from 'react'
 import { checkTotal } from './App'
-import FormPartyList from './PartyList'
+import FormPartyList from './FormPartyList'
 import FormTotalError from './FormTotalError'
 
 class InputForm extends React.Component {
