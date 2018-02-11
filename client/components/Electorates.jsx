@@ -1,4 +1,6 @@
 import React from 'react'
+import FormPartyList from './PartyList'
+// import { adjustVote, calculateVotes } from '../functions.js'
 
 class Electorates extends React.Component {
     constructor(props) {
@@ -17,43 +19,35 @@ class Electorates extends React.Component {
         })
     }
 
-
     adjustVote(list) {
         const subtotal = Object.values(list).reduce((total, num) => { return (total + num) })
         const adjustedVotes = {}
         for (const party in list) {
-            const newVote = ((100 / subtotal) * list[party]).toFixed(1)
+            const newVote = (100 / subtotal) * list[party]
             adjustedVotes[party] = Number(newVote)
         }
         return adjustedVotes
     }
 
-    calculateVotes() {
-        console.log('calculate')
-        const list = this.props.parties
+    calculateVotes(list, state) {
+        // const list = this.props.parties
         for (const party in list) {
-            if (list[party] < 5 && this.state[party] === 0) {
+            if (list[party] < 5 && state[party] === 0) {
                 list[party] = 0
             }
-            console.log(party, list[party] < 5 ? (!this.state[party] ? 'cya' : 'overhang') : '')
+            // console log which parties get zero'd
+            console.log(party, list[party] < 5 ? (!state[party] ? 'cya' : 'overhang') : '')
          }
         const proportional = this.adjustVote(list)
+       // send this object to a Sainte-Lague table..somehow??
         console.log(proportional)
     }
-
 
     render() {
         return (
             <div>
                 <h3>Calculate electorates</h3>
-                <form>
-                    <ul>
-                        {Object.keys(this.props.parties).map((party, idx) => {
-                            return <li key={idx}>{party}: <input type='number' min='0' max='71' name={`${party}`} placeholder='0' onChange={this.handleChange} /></li>
-                        })}
-                    </ul>
-                    <button type='button' onClick={this.calculateVotes}>Seat allocation</button>
-                </form>
+                <FormPartyList state={this.state} list={this.props.parties} max='71' handleChange={this.handleChange} handleSubmit={this.calculateVotes} text='Seat allocation' />
             </div>
         )
     }

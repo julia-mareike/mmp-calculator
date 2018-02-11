@@ -1,5 +1,6 @@
 import React from 'react'
 import { checkTotal } from './App'
+import FormPartyList from './PartyList'
 
 class InputForm extends React.Component {
   constructor(props) {
@@ -22,11 +23,11 @@ class InputForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit () {
-    this.props.checkTotal(this.state)
-    } 
+  handleSubmit(list) {
+    this.props.checkTotal(list)
+  }
 
-  handleChange (e) {
+  handleChange(e) {
     this.setState({
       [e.target.name]: Number(e.target.value)
     })
@@ -35,14 +36,8 @@ class InputForm extends React.Component {
   render() {
     return (
       <div>
-        <form>
-          <ul>
-          {Object.keys(this.state).map((party, idx) => {
-            return <li key={idx}>{party}: <input type='number' min='0' max='100' name={`${party}`} placeholder='0' onChange={this.handleChange} /></li>
-          })}
-          </ul>
-        <button type='button' onClick={this.handleSubmit}>Next step: electorates</button>
-        </form>
+        <FormPartyList list={this.state} max='100' handleChange={this.handleChange} 
+        handleSubmit={this.handleSubmit} text='Next step: electorates' />
       </div>
     )
   }
