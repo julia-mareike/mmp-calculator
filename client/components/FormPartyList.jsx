@@ -8,8 +8,10 @@ const FormPartyList = (props) => {
                 {Object.keys(props.list).map((party, idx) => {
                     return <li key={idx}>
                     {party}: 
-                    <input type='number' min='0' max={props.max} name={`${party}`} 
-                    placeholder='0' onChange={props.handleChange} />
+                    <input type='number' min='0' max={props.max} name={`${party}`} step='0.1'
+                    onChange={props.handleChange} placeholder='0' />
+                    {/* placeholder isn't editable anymore? */}
+                     {/* placeholder={props.pastVotes[party]} /> */}
                     </li>
                 })}
             </ul>

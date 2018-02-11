@@ -1,6 +1,6 @@
 import React from 'react'
 import FormPartyList from './FormPartyList'
-import { adjustVote, calculateVotes } from '../functions.js'
+import {adjustVote, calculateVotes} from '../functions.js'
 
 class Electorates extends React.Component {
     constructor(props) {

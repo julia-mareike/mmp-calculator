@@ -1,5 +1,6 @@
 import React from 'react'
-import { checkTotal } from './App'
+import {checkTotal} from './App'
+import {pastVotes} from '../past-votes'
 import FormPartyList from './FormPartyList'
 import FormTotalError from './FormTotalError'
 
@@ -40,7 +41,7 @@ class InputForm extends React.Component {
     return (
       <div>
         <FormPartyList list={this.state} max='100' handleChange={this.handleChange} 
-        handleSubmit={this.handleSubmit} text='Next step: electorates' />
+        handleSubmit={this.handleSubmit} pastVotes={pastVotes} text='Next step: electorates' />
         {state.formError && <FormTotalError total={state.hundredPercent} />}
       </div>
     )
