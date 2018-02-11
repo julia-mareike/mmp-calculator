@@ -9,15 +9,14 @@ export function adjustVote(list) {
 }
 
 export function calculateVotes(list, state) {
-    // const list = this.props.parties
     for (const party in list) {
         if (list[party] < 5 && state[party] === 0) {
             list[party] = 0
         }
-        // console log which parties get zero'd
+        // console log which parties get zero'd, do something with this info later
         console.log(party, list[party] < 5 ? (!state[party] ? 'cya' : 'overhang') : '')
-     }
-    const proportional = this.adjustVote(list)
-   // send this object to a Sainte-Lague table..somehow??
+    }
+    const proportional = adjustVote(list)
+    // send this object to a Sainte-Lague table..somehow somewhere??
     console.log(proportional)
 }
