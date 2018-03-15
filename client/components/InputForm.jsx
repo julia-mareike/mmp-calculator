@@ -1,38 +1,47 @@
 import React from 'react'
+import {pastVotes} from '../past-votes'
+import FormPartyList from './FormPartyList'
+import FormTotalError from './FormTotalError'
 
 class InputForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
+
     this.state = {
-      national: null,
-      labour: null,
-      greens: null,
-      nzfirst: null,
-      māori: null,
-      act: null,
-      top: null,
-      mana: null,
-      unitedfuture: null,
-      legalise: null,
-      other: null
+      national: 0,
+      labour: 0,
+      greens: 0,
+      nzfirst: 0,
+      māori: 0,
+      act: 0,
+      top: 0,
+      mana: 0,
+      unitedfuture: 0,
+      legalise: 0,
+      other: 0
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  render() {
-    // const inputMax = Math.max(100, )
+  handleSubmit (list) {
+    this.props.checkTotal(list)
+  }
 
+  handleChange (e) {
+    e.preventDefault()
+    this.setState({
+      [e.target.name]: Number(e.target.value)
+    })
+  }
+
+  render () {
+    const state = this.props.formState
     return (
       <div>
-        <form>
-          {Object.keys(this.state).map(party => {
-            return <p>hi {party}: <input type='number' max='100' name={`${party}`} value={this.state[party]} /></p>
-          })}
-        </form>
-
-
-        {/* <a href='#' onClick={hideDetails}>Close</a> */}
-
-        {/* onClick function reduce inputs, if > 100 werror/warning please make sure total adds up to 100 */}
+        <FormPartyList list={this.state} max='100' handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit} pastVotes={pastVotes} text='Next step: electorates' />
+        {state.formError && <FormTotalError total={state.hundredPercent} />}
       </div>
     )
   }

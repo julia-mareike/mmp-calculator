@@ -1,96 +1,47 @@
 import React from 'react'
-
+import {HashRouter as Router, Route, Redirect, Link} from 'react-router-dom'
+import {electorate, party} from '../info'
 import InputForm from './InputForm'
-// import AddWidget from './AddWidget'
-// import WidgetList from './WidgetList'
-// import WidgetDetails from './WidgetDetails'
-// import ErrorMessage from './ErrorMessage'
+import Electorates from './Electorates'
+import Info from './Info'
 
-// import {getWidgets} from '../api'
-
-export default class App extends React.Component {
+class App extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
-      // error: null,
-      // widgets: [],
-      // activeWidget: null,
-      // detailsVisible: false,
-      // addWidgetVisible: false
+      formError: true
     }
-
-    // this.refreshList = this.refreshList.bind(this)
-    // this.showDetails = this.showDetails.bind(this)
-    // this.hideDetails = this.hideDetails.bind(this)
-    // this.renderWidgets = this.renderWidgets.bind(this)
-    // this.showAddWidget = this.showAddWidget.bind(this)
+    this.checkTotal = this.checkTotal.bind(this)
   }
 
-  // componentDidMount () {
-  //   this.refreshList()
-  // }
-
-  // renderWidgets (err, widgets) {
-  //   this.setState({
-  //     error: err,
-  //     widgets: widgets || []
-  //   })
-  // }
-
-  // refreshList (err) {
-  //   this.setState({
-  //     error: err,
-  //     addWidgetVisible: false
-  //   })
-  //   getWidgets(this.renderWidgets)
-  // }
-
-  // showAddWidget () {
-  //   this.setState({
-  //     addWidgetVisible: true
-  //   })
-  // }
-
-  // showDetails (widget) {
-  //   this.setState({
-  //     activeWidget: widget,
-  //     detailsVisible: true
-  //   })
-  // }
-
-  // hideDetails () {
-  //   this.setState({
-  //     detailsVisible: false
-  //   })
-  // }
+  checkTotal (input) {
+    const total = Object.values(input).reduce((total, num) => { return (total + num) }).toFixed(1)
+    this.setState({
+      hundredPercent: Number(total),
+      formError: Number(total) !== 100,
+      parties: input
+    })
+  }
 
   render () {
     return (
-      <div>
-        {/* <ErrorMessage error={this.state.error} /> */}
-
-        <h1>What is vote?</h1>
-        <InputForm />
-{/* 
-        <WidgetList
-          showDetails={this.showDetails}
-          widgets={this.state.widgets} />
-
-        <p>
-          <a id='show-widget-link' href='#'
-            onClick={this.showAddWidget}>Add widget</a>
-        </p>
-
-        {this.state.addWidgetVisible && <AddWidget
-          finishAdd={this.refreshList} />}
-
-        {this.state.detailsVisible && <WidgetDetails
-          isVisible={this.state.detailsVisible}
-          hideDetails={this.hideDetails}
-          widget={this.state.activeWidget} />} */}
-      </div>
+      <Router>
+        <div className='vote'>
+          <h1>vote!</h1>
+          <div className='container'>
+            {/* what does  {...props} do in these routes? */}
+            <Route exact path='/' render={props =>
+              (this.state.formError ? (<InputForm checkTotal={this.checkTotal} formState={this.state} />) : (<Redirect to='electorates' />))} />
+            <Route exact path='/' render={props => <Info text={party} />} />
+            <Route path='/electorates' render={props => <Electorates parties={this.state.parties} />} />
+            <Route path='/electorates' render={props => <Info text={electorate} />} />
+          </div>
+          {/* link to homepage from /electorates? */}
+          <Link to='/'>Home</Link>
+        </div>
+      </Router>
     )
   }
 }
 
+export default App
