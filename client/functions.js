@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 export function adjustVote (list) {
   const subtotal = Object.values(list).reduce((total, num) => { return (total + num) })
   const adjustedVotes = {}
@@ -22,19 +24,21 @@ export function calculateVotes (list, state) {
 }
 
 export function formula (votes, idx) {
-  return votes / (idx * 2 + 1)
+  const result = votes / (idx * 2 + 1)
+  return result
 }
 
-// export function saintLague (totals) {
-//   for (let i = 0; i < 20; i++) {
-//     let max = 0
-//     let maxp = 0
-//     for (let p = 0; p < totals.length; p++) {
-//       let quot = formula(totals[p], i)
-//       if (quot > max) {
-//         max = quot
-//         maxp = p
-//       }
-//     }
-//   }
-// }
+export function saintLague (totals, idx = 0) {
+  let array = []
+  for (let party of totals) {
+    let quot = formula(party.votes, idx)
+    array.push(quot)
+  }
+  // find highest value
+  const max = _.max(array)
+  const index = _.indexOf(array, max)
+  // replace previous value with highest
+  totals[index].votes = max
+  totals[index].seats++
+  return totals
+}
