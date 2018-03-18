@@ -20,3 +20,21 @@ export function calculateVotes (list, state) {
   // send this object to a Sainte-Lague table..somehow somewhere??
   console.log(proportional)
 }
+
+export function formula (votes, idx) {
+  return votes / (idx * 2 + 1)
+}
+
+// export function saintLague (totals) {
+//   for (let i = 0; i < 20; i++) {
+//     let max = 0
+//     let maxp = 0
+//     for (let p = 0; p < totals.length; p++) {
+//       let quot = formula(totals[p], i)
+//       if (quot > max) {
+//         max = quot
+//         maxp = p
+//       }
+//     }
+//   }
+// }
