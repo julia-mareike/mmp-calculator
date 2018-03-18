@@ -28,17 +28,23 @@ export function formula (votes, idx) {
   return result
 }
 
-export function saintLague (totals, idx = 0) {
-  let array = []
-  for (let party of totals) {
-    let quot = formula(party.votes, idx)
-    array.push(quot)
+export function saintLague (totals, idx, seats) {
+  if (seats <= 0) {
+    return console.log('done')
+  } else {
+    let array = []
+    for (let party of totals) {
+      let quotient = formula(party.adjusted, idx)
+      array.push(quotient)
+    }
+    // find the current highest value
+    const max = _.max(array)
+    const index = _.indexOf(array, max)
+    // increase seat allocation
+    totals[index].allocated++
+    // remove highest value, replace with next iteration in table
+    totals[index].adjusted = formula(totals[index].votes, totals[index].allocated)
+    saintLague(totals, idx++, seats - 1)
   }
-  // find highest value
-  const max = _.max(array)
-  const index = _.indexOf(array, max)
-  // replace previous value with highest
-  totals[index].votes = max
-  totals[index].seats++
   return totals
 }
