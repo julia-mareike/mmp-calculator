@@ -1,9 +1,9 @@
 const _ = require('lodash')
 
-export function adjustVote (list) {
-  const subtotal = Object.values(list).reduce((total, num) => { return (total + num) })
+export function adjustVotes (list) {
+  const subtotal = _.sum(_.values(list))
   const adjustedVotes = {}
-  for (const party in list) {
+  for (let party in list) {
     const newVote = (100 / subtotal) * list[party]
     adjustedVotes[party] = Number(newVote)
   }
@@ -11,14 +11,14 @@ export function adjustVote (list) {
 }
 
 export function calculateVotes (list, state) {
-  for (const party in list) {
+  for (let party in list) {
     if (list[party] < 5 && !state[party]) {
       list[party] = 0
     }
     // console log which parties get zero'd, do something with this info later
     console.log(party, list[party] < 5 ? (!state[party] ? 'cya' : 'overhang') : '')
   }
-  const proportional = adjustVote(list)
+  const proportional = adjustVotes(list)
   // send this object to a Sainte-Lague table..somehow somewhere??
   console.log(proportional)
 }
@@ -34,17 +34,19 @@ export function saintLague (totals, idx, seats) {
   } else {
     let array = []
     for (let party of totals) {
-      let quotient = formula(party.adjusted, idx)
+      const quotient = formula(party.adjusted, idx)
       array.push(quotient)
     }
     // find the current highest value
     const max = _.max(array)
-    const index = _.indexOf(array, max)
+    const current = _.indexOf(array, max)
     // increase seat allocation
-    totals[index].allocated++
-    // remove highest value, replace with next iteration in table
-    totals[index].adjusted = formula(totals[index].votes, totals[index].allocated)
+    totals[current].allocated++
+    // remove highest value, replace with next iteration in table based on seats so far
+    totals[current].adjusted = formula(totals[current].votes, totals[current].allocated)
+    // continue!
     saintLague(totals, idx++, seats - 1)
   }
   return totals
+  // overhang will still need to be accounted for
 }
