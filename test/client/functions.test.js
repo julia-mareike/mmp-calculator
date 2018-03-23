@@ -44,3 +44,51 @@ test('saintLague function allocates seats accurately', () => {
   expect(labour).toBe(52)
   expect(greens).toBe(7)
 })
+
+test('createVoteObject does its thing', () => {
+  let obj = {
+    act: 0.5,
+    greens: 6.3,
+    labour: 36.9,
+    mana: 0.1,
+    maori: 1.2,
+    national: 44.4,
+    nzfirst: 7.2,
+    top: 2.4
+  }
+  const expected = functions.createVoteObject(obj)
+  expect(expected[0].adjusted).toBe(0.5)
+})
+
+test('calculateVotes function carries through to createVoteObject', () => {
+  let state = {
+    act: 1,
+    labour: 29,
+    national: 45
+  }
+
+  let list = {
+    act: 0.2,
+    greens: 6,
+    labour: 42.3,
+    maori: 0.8,
+    national: 44,
+    nzfirst: 5,
+    top: 1.4
+  }
+
+  const expected = functions.calculateVotes(state, list)
+  const calculation = functions.saintLague(expected, 0, 120)
+  console.log(calculation)
+  const act = calculation[0].allocated
+  const greens = calculation[1].allocated
+  const labour = calculation[2].allocated
+  const national = calculation[3].allocated
+  const nzfirst = calculation[4].allocated
+
+  expect(act).toBe(1)
+  expect(greens).toBe(7)
+  expect(labour).toBe(52)
+  expect(national).toBe(55)
+  expect(nzfirst).toBe(6)
+})

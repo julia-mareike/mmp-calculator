@@ -29,14 +29,12 @@ class App extends React.Component {
         <div className='vote'>
           <h1>vote!</h1>
           <div className='container'>
-            {/* what does  {...props} do in these routes? */}
             <Route exact path='/' render={props =>
               (this.state.formError ? (<InputForm checkTotal={this.checkTotal} formState={this.state} />) : (<Redirect to='electorates' />))} />
             <Route exact path='/' render={props => <Info text={party} />} />
             <Route path='/electorates' render={props => <Electorates parties={this.state.parties} />} />
             <Route path='/electorates' render={props => <Info text={electorate} />} />
           </div>
-          {/* link to homepage from /electorates? */}
           <Link to='/'>Home</Link>
         </div>
       </Router>

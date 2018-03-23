@@ -39,8 +39,13 @@ class InputForm extends React.Component {
     const state = this.props.formState
     return (
       <div>
-        <FormPartyList list={this.state} max='100' handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit} pastVotes={pastVotes} text='Next step: electorates' />
+        <form>
+          <FormPartyList list={this.state} max='100' handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit} pastVotes={pastVotes} />
+          <button type='button' onClick={() => this.handleSubmit(this.state)}>
+            {'Next step: electorates'}
+          </button>
+        </form>
         {state.formError && <FormTotalError total={state.hundredPercent} />}
       </div>
     )
