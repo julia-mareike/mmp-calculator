@@ -21,6 +21,7 @@ class Electorates extends React.Component {
 
   calculateSeats () {
     const votes = calculateVotes(this.state, this.props.parties)
+    console.log('votes', votes)
     console.log(saintLague(votes))
   }
 
