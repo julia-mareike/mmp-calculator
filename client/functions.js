@@ -12,28 +12,21 @@ export function adjustVotes (list) {
 
 export function calculateVotes (state, list) {
   let overhang = []
+
   for (let party in list) {
-    // if (list[party] < 5 && !state[party]) {
-    //   list[party] = 0
-    // }
     // if votes < 5 and no electorate, votes = 0, else add to overhang array
     list[party] < 5 ? (!state[party] ? list[party] = 0 : overhang.push([party, state[party]])) : console.log('ok', party)
-    // console.log(party, list[party] < 5 ? (!state[party] ? 'cya' : 'overhang') : '')
   }
+
   const proportional = adjustVotes(list)
   let voteObject = createVoteObject(proportional)
+  
   let newObject = {}
   for (let party of overhang) {
-    // _(voteObject)
-    //   .find(voteObject, ['party', party[0]])
-    //   .set(voteObject, 'allocated', party[1])
     let partyObject = []
     partyObject.push({'party': party[0], 'allocated': party[1]})
     newObject = Object.assign(voteObject, partyObject)
   }
-  // console.log('overhang', overhang)
-  // console.log('done', voteObject)
-  console.log('new', newObject)
   return newObject
 }
 

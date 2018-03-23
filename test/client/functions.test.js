@@ -79,7 +79,6 @@ test('calculateVotes function carries through to createVoteObject', () => {
 
   const expected = functions.calculateVotes(state, list)
   const calculation = functions.saintLague(expected, 0, 120)
-  console.log(calculation)
   const act = calculation[0].allocated
   const greens = calculation[1].allocated
   const labour = calculation[2].allocated
