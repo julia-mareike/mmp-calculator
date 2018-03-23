@@ -7,8 +7,7 @@ export function adjustVotes (list) {
     const newVote = (100 / subtotal) * list[party]
     adjustedVotes[party] = Number(newVote)
   }
-  let allVotes = createVoteObject(adjustedVotes)
-  return allVotes
+  return adjustedVotes
 }
 
 export function calculateVotes (electorates, rawVotes) {
@@ -18,16 +17,14 @@ export function calculateVotes (electorates, rawVotes) {
     // if votes < 5 and no electorate, votes = 0, else add to overhang array
     rawVotes[party] < 5 ? (!electorates[party] ? rawVotes[party] = 0 : overhang.push([party, electorates[party]])) : console.log('ok', party)
   }
-
   const proportional = adjustVotes(rawVotes)
-
-  let calculatedVotes = {}
+  let allVotes = createVoteObject(proportional)
+  // let calculatedVotes = {}
   for (let party of overhang) {
-    let partyOverhang = []
-    partyOverhang.push({'party': party[0], 'allocated': party[1]})
-    calculatedVotes = Object.assign(proportional, partyOverhang)
+    const target = _.findIndex(allVotes, ['party', party[0]])
+    allVotes[target].allocated = party[1]
   }
-  return calculatedVotes
+  return allVotes
 }
 
 export function formula (votes, idx) {
