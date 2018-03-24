@@ -14,12 +14,14 @@ export function calculateVotes (electorates, rawVotes) {
   const overhang = []
 
   for (let party in rawVotes) {
-    // if votes < 5 and no electorate, votes = 0, else add to overhang array
+    // if votes < 5% and no electorate, votes = 0, else add to overhang array
     rawVotes[party] < 5 ? (!electorates[party] ? rawVotes[party] = 0 : overhang.push([party, electorates[party]])) : console.log('ok', party)
   }
+  // get proportional share of votes with small parties removed
   const proportional = adjustVotes(rawVotes)
+  // format object for saintLague function
   let allVotes = createVoteObject(proportional)
-  // let calculatedVotes = {}
+  // include overhang seats
   for (let party of overhang) {
     const target = _.findIndex(allVotes, ['party', party[0]])
     allVotes[target].allocated = party[1]
@@ -60,5 +62,5 @@ export function saintLague (totals, idx = 0, seats = 120) {
     totals[current].adjusted = formula(totals[current].votes, totals[current].allocated) // remove & replace highest value
     saintLague(totals, idx++, --seats) // continue!
   }
-  return totals // overhang will still need to be accounted for
+  return totals
 }
