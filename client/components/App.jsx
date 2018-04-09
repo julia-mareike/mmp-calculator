@@ -5,6 +5,8 @@ import InputForm from './InputForm'
 import Electorates from './Electorates'
 import Info from './Info'
 
+const _ = require('lodash')
+
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -15,7 +17,7 @@ class App extends React.Component {
   }
 
   checkTotal (input) {
-    const total = Object.values(input).reduce((total, num) => { return (total + num) }).toFixed(1)
+    const total = _.sum(_.values(input)).toFixed(1)
     this.setState({
       hundredPercent: Number(total),
       formError: Number(total) !== 100,

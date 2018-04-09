@@ -1,5 +1,4 @@
 import React from 'react'
-import {pastVotes} from '../past-votes'
 import FormPartyList from './FormPartyList'
 import FormTotalError from './FormTotalError'
 
@@ -41,7 +40,7 @@ class InputForm extends React.Component {
       <div>
         <form>
           <FormPartyList list={this.state} max='100' handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit} pastVotes={pastVotes} />
+            handleSubmit={this.handleSubmit} />
           <button type='button' onClick={() => this.handleSubmit(this.state)}>
             {'Next step: electorates'}
           </button>

@@ -1,12 +1,14 @@
 import React from 'react'
 import FormPartyList from './FormPartyList'
+import Seats from './Seats'
 import {calculateVotes, saintLague} from '../functions.js'
 
 class Electorates extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      formError: true
+      formError: true,
+      seats: null
     }
     this.handleChange = this.handleChange.bind(this)
     this.calculateSeats = this.calculateSeats.bind(this)
@@ -21,8 +23,10 @@ class Electorates extends React.Component {
 
   calculateSeats () {
     const votes = calculateVotes(this.state, this.props.parties)
-    console.log('votes', votes)
-    console.log(saintLague(votes))
+    const seats = saintLague(votes)
+    this.setState({
+      seats
+    })
   }
 
   render () {
@@ -35,6 +39,7 @@ class Electorates extends React.Component {
           <button type='button' onClick={this.calculateSeats}>
             {'Seat allocation'}
           </button>
+          {this.state.seats && <Seats seats={this.state.seats} />}
         </form>
       </div>
     )
