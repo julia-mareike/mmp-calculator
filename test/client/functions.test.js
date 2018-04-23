@@ -68,13 +68,13 @@ test('calculateVotes function carries through to createVoteObject', () => {
   }
 
   let list = {
-    act: 0.2,
-    greens: 6,
-    labour: 42.3,
-    maori: 0.8,
-    national: 44,
-    nzfirst: 5,
-    top: 1.4
+    act: 0.5,
+    greens: 6.3,
+    labour: 36.9,
+    maori: 1.2,
+    national: 44.5,
+    nzfirst: 7.2,
+    top: 2.4
   }
 
   const expected = functions.calculateVotes(state, list)
