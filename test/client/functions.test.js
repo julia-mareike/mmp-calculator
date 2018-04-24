@@ -85,9 +85,9 @@ test('calculateVotes function carries through to createVoteObject', () => {
   const national = calculation[3].allocated
   const nzfirst = calculation[4].allocated
 
+  expect(greens).toBe(8)
+  expect(labour).toBe(46)
+  expect(national).toBe(56)
+  expect(nzfirst).toBe(9)
   expect(act).toBe(1)
-  expect(greens).toBe(7)
-  expect(labour).toBe(52)
-  expect(national).toBe(55)
-  expect(nzfirst).toBe(6)
 })
