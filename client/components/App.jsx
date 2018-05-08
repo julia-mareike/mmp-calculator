@@ -29,10 +29,12 @@ class App extends React.Component {
     return (
       <Router>
         <div className='vote'>
-          <h1>vote!</h1>
+          <h1>MMP Calculator</h1>
           <div className='container'>
             <Route exact path='/' render={props =>
-              (this.state.formError ? (<InputForm checkTotal={this.checkTotal} formState={this.state} />) : (<Redirect to='electorates' />))} />
+              (this.state.formError
+                ? (<InputForm checkTotal={this.checkTotal} formState={this.state} />)
+                : (<Redirect to='electorates' />))} />
             <Route exact path='/' render={props => <Info text={party} />} />
             <Route path='/electorates' render={props => <Electorates parties={this.state.parties} />} />
             <Route path='/electorates' render={props => <Info text={electorate} />} />
