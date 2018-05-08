@@ -7,17 +7,17 @@ class InputForm extends React.Component {
     super(props)
 
     this.state = {
-      national: 0,
-      labour: 0,
-      greens: 0,
-      nzfirst: 0,
-      māori: 0,
-      act: 0,
-      top: 0,
-      mana: 0,
-      unitedfuture: 0,
-      legalise: 0,
-      other: 0
+      national: 44.4,
+      labour: 36.9,
+      greens: 6.3,
+      nzfirst: 7.2,
+      māori: 1.2,
+      act: 0.5,
+      top: 2.4,
+      mana: 0.1,
+      unitedfuture: 0.1,
+      legalise: 0.3,
+      other: 0.6
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
