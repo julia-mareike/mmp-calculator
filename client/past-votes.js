@@ -1,4 +1,4 @@
-export const pastVotes = {
+export const votes = {
   national: 44.4,
   labour: 36.9,
   greens: 6.3,
