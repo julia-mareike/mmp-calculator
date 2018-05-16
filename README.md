@@ -1,5 +1,7 @@
 # Vote Calculator - an MMP visualisation tool
 
+-- momentarily slightly broken :( --
+
 This is the beginning of a small personal project, begun as part of Enspiral Dev Academy's development bootcamp.
 
 
